@@ -1,0 +1,466 @@
+/* =========================================================
+   FitBuddy – Global Stylesheet
+   ========================================================= */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif;
+  background: #0f0f0f;
+  color: #f0f0f0;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ---------- Typography ---------- */
+h1, h2, h3 { font-weight: 700; letter-spacing: 0.03em; }
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.7rem; }
+h3 { font-size: 1.2rem; }
+
+a { color: #f97316; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---------- Hero / Navbar ---------- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.navbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #f97316;
+}
+
+.navbar .brand span { color: #fff; }
+
+.nav-links a {
+  color: #ccc;
+  margin-left: 1.5rem;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: #f97316; text-decoration: none; }
+
+/* ---------- Hero Section (index.html) ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(15,15,15,0.85) 40%, rgba(249,115,22,0.18) 100%);
+  z-index: 0;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80");
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.35);
+  z-index: -1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  width: 100%;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(249,115,22,0.18);
+  border: 1px solid rgba(249,115,22,0.45);
+  color: #f97316;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1.2rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  margin-bottom: 0.8rem;
+  color: #fff;
+}
+
+.hero-title .accent { color: #f97316; }
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: #bbb;
+  margin-bottom: 2.4rem;
+}
+
+/* ---------- Card ---------- */
+.card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1.25rem;
+  padding: 2rem 2.4rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+}
+
+/* ---------- Form ---------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group.full-width { grid-column: 1 / -1; }
+
+label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+input, select, textarea {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 0.6rem;
+  color: #f0f0f0;
+  font-size: 0.95rem;
+  padding: 0.65rem 0.9rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  font-family: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #f97316;
+  background: rgba(249,115,22,0.08);
+}
+
+select option { background: #1a1a1a; }
+
+textarea { resize: vertical; min-height: 90px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(249,115,22,0.4);
+  width: 100%;
+  margin-top: 1.2rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(249,115,22,0.55);
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.08);
+  color: #f0f0f0;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: rgba(220,38,38,0.15);
+  color: #f87171;
+  border: 1px solid rgba(220,38,38,0.35);
+}
+
+.btn-danger:hover {
+  background: rgba(220,38,38,0.28);
+}
+
+/* ---------- Page Wrapper ---------- */
+.page-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+/* ---------- Section Headers ---------- */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.section-icon {
+  font-size: 1.5rem;
+}
+
+/* ---------- User Info Banner ---------- */
+.user-banner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  background: rgba(249,115,22,0.08);
+  border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 1rem;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.user-banner-item { display: flex; flex-direction: column; gap: 0.15rem; }
+.user-banner-item .label { font-size: 0.72rem; color: #f97316; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+.user-banner-item .value { font-size: 1rem; font-weight: 600; color: #fff; }
+
+/* ---------- Plan Block ---------- */
+.plan-block {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.plan-block pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: #ddd;
+}
+
+/* ---------- Nutrition Tip ---------- */
+.nutrition-card {
+  background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(16,185,129,0.06));
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 1rem;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.5rem;
+  color: #d1fae5;
+  font-size: 0.97rem;
+  line-height: 1.75;
+}
+
+.nutrition-card .tip-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #6ee7b7;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Feedback Section ---------- */
+.feedback-section {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1rem;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Alert Messages ---------- */
+.alert {
+  padding: 0.9rem 1.2rem;
+  border-radius: 0.7rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.alert-success {
+  background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.35);
+  color: #6ee7b7;
+}
+
+.alert-warning {
+  background: rgba(234,179,8,0.12);
+  border: 1px solid rgba(234,179,8,0.35);
+  color: #fde68a;
+}
+
+/* ---------- Updated Plan Badge ---------- */
+.updated-badge {
+  display: inline-block;
+  background: rgba(249,115,22,0.18);
+  border: 1px solid rgba(249,115,22,0.45);
+  color: #f97316;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  margin-left: 0.6rem;
+  vertical-align: middle;
+}
+
+/* ---------- Admin Table ---------- */
+.admin-table-wrapper {
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+thead {
+  background: rgba(249,115,22,0.15);
+}
+
+thead th {
+  text-align: left;
+  padding: 0.9rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #f97316;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.15s;
+}
+
+tbody tr:hover { background: rgba(255,255,255,0.04); }
+
+tbody td {
+  padding: 0.85rem 1rem;
+  vertical-align: top;
+  color: #ddd;
+}
+
+.plan-preview {
+  max-height: 120px;
+  overflow-y: auto;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #bbb;
+  scrollbar-width: thin;
+  scrollbar-color: #f97316 transparent;
+}
+
+.plan-preview::-webkit-scrollbar { width: 4px; }
+.plan-preview::-webkit-scrollbar-thumb { background: #f97316; border-radius: 4px; }
+
+.no-plan { color: #555; font-style: italic; font-size: 0.85rem; }
+
+/* ---------- Empty State ---------- */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+}
+
+.empty-state .icon { font-size: 3.5rem; margin-bottom: 1rem; display: block; }
+
+/* ---------- Page Title ---------- */
+.page-title {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.page-title .accent { color: #f97316; }
+
+.page-subtitle {
+  color: #888;
+  font-size: 0.98rem;
+  margin-bottom: 2rem;
+}
+
+/* ---------- Divider ---------- */
+.divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin: 2rem 0;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.82rem;
+  color: #444;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .card { padding: 1.4rem 1.2rem; }
+  h1 { font-size: 1.8rem; }
+  .navbar .brand { font-size: 1.2rem; }
+  .user-banner { grid-template-columns: 1fr 1fr; }
+}

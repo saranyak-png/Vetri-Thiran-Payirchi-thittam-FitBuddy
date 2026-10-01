@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your FitBuddy Plan – {{ username }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700;800&family=Roboto+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="brand">🏋️ <span>FitBuddy</span></div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/view-all-users">Admin Panel</a>
+      <a href="/docs">API Docs</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- ── Page heading ── -->
+    <h1 class="page-title">Your <span class="accent">Fitness Plan</span></h1>
+    <p class="page-subtitle">Personalized by AI · Powered by Google Gemini</p>
+
+    <!-- ── Feedback / status message ── -->
+    {% if feedback_message %}
+      {% if "✅" in feedback_message %}
+        <div class="alert alert-success">{{ feedback_message }}</div>
+      {% else %}
+        <div class="alert alert-warning">{{ feedback_message }}</div>
+      {% endif %}
+    {% endif %}
+
+    <!-- ── User Info Banner ── -->
+    <div class="user-banner">
+      <div class="user-banner-item">
+        <span class="label">Name</span>
+        <span class="value">{{ username }}</span>
+      </div>
+      <div class="user-banner-item">
+        <span class="label">User ID</span>
+        <span class="value">{{ user_id }}</span>
+      </div>
+      <div class="user-banner-item">
+        <span class="label">Age</span>
+        <span class="value">{{ age }} yrs</span>
+      </div>
+      <div class="user-banner-item">
+        <span class="label">Weight</span>
+        <span class="value">{{ weight }} kg</span>
+      </div>
+      <div class="user-banner-item">
+        <span class="label">Goal</span>
+        <span class="value">{{ goal }}</span>
+      </div>
+      <div class="user-banner-item">
+        <span class="label">Intensity</span>
+        <span class="value">{{ intensity }}</span>
+      </div>
+    </div>
+
+    <!-- ── 7-Day Workout Plan ── -->
+    {% if workout_plan %}
+    <div class="section-header">
+      <span class="section-icon">📋</span>
+      <h2>7-Day Workout Plan</h2>
+    </div>
+    <div class="plan-block">
+      <pre>{{ workout_plan }}</pre>
+    </div>
+    {% endif %}
+
+    <!-- ── Updated Plan (shown after feedback) ── -->
+    {% if updated_plan %}
+    <div class="section-header">
+      <span class="section-icon">🔄</span>
+      <h2>Updated Plan <span class="updated-badge">Revised</span></h2>
+    </div>
+    <div class="plan-block">
+      <pre>{{ updated_plan }}</pre>
+    </div>
+    {% endif %}
+
+    <hr class="divider" />
+
+    <!-- ── Nutrition Tip ── -->
+    {% if nutrition_tip %}
+    <div class="section-header">
+      <span class="section-icon">🥗</span>
+      <h2>Nutrition &amp; Recovery Tip</h2>
+    </div>
+    <div class="nutrition-card">
+      <div class="tip-label">💡 Gemini Flash Tip</div>
+      {{ nutrition_tip }}
+    </div>
+    {% endif %}
+
+    <hr class="divider" />
+
+    <!-- ── Feedback Form ── -->
+    <div class="feedback-section">
+      <div class="section-header">
+        <span class="section-icon">✍️</span>
+        <h2>Refine Your Plan</h2>
+      </div>
+      <p style="color:#999; font-size:0.9rem; margin-bottom:1.2rem;">
+        Not satisfied? Tell us what to change and Gemini will regenerate your plan.
+      </p>
+
+      <form action="/submit-feedback" method="post">
+        <input type="hidden" name="user_id" value="{{ user_id }}" />
+
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label for="feedback">Your Feedback</label>
+          <textarea
+            id="feedback"
+            name="feedback"
+            placeholder="e.g. Add more rest days, include yoga, less cardio…"
+            rows="3"
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="max-width:260px;">
+          🔄 Update My Plan
+        </button>
+      </form>
+    </div>
+
+    <!-- ── Action Buttons ── -->
+    <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+      <a href="/" class="btn btn-secondary">← Generate a New Plan</a>
+      <a href="/view-all-users" class="btn btn-secondary">👥 Admin Panel</a>
+    </div>
+
+  </div><!-- /page-wrapper -->
+
+  <footer>
+    &copy; 2024 FitBuddy – AI Fitness Plan Generator &nbsp;|&nbsp; Built with FastAPI &amp; Google Gemini
+  </footer>
+
+</body>
+</html>

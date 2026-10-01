@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitBuddy – All Users</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700;800&family=Roboto+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="brand">🏋️ <span>FitBuddy</span></div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/view-all-users">Admin Panel</a>
+      <a href="/docs">API Docs</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- ── Page heading ── -->
+    <h1 class="page-title">Admin <span class="accent">Dashboard</span></h1>
+    <p class="page-subtitle">
+      All registered users and their AI-generated workout plans
+      ({{ users | length }} user{{ 's' if users | length != 1 else '' }} found)
+    </p>
+
+    {% if users %}
+
+      <!-- ── Summary Stats ── -->
+      <div class="user-banner" style="margin-bottom:2rem; max-width:500px;">
+        <div class="user-banner-item">
+          <span class="label">Total Users</span>
+          <span class="value">{{ users | length }}</span>
+        </div>
+        <div class="user-banner-item">
+          <span class="label">Plans Generated</span>
+          <span class="value">{{ plans_by_user | length }}</span>
+        </div>
+        <div class="user-banner-item">
+          <span class="label">Updated Plans</span>
+          <span class="value">
+            {{ plans_by_user.values() | selectattr('updated_plan') | list | length }}
+          </span>
+        </div>
+      </div>
+
+      <!-- ── Users Table ── -->
+      <div class="admin-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Weight (kg)</th>
+              <th>Goal</th>
+              <th>Intensity</th>
+              <th>Original Plan</th>
+              <th>Updated Plan</th>
+              <th>Nutrition Tip</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            {% set plan = plans_by_user.get(user.user_id) %}
+            <tr>
+              <td style="color:#555; font-size:0.8rem;">{{ loop.index }}</td>
+              <td>
+                <code style="background:rgba(249,115,22,0.12); color:#f97316; padding:0.15rem 0.45rem; border-radius:0.3rem; font-size:0.8rem;">
+                  {{ user.user_id }}
+                </code>
+              </td>
+              <td style="font-weight:600; color:#fff;">{{ user.username }}</td>
+              <td>{{ user.age }}</td>
+              <td>{{ user.weight }}</td>
+              <td>
+                <span style="background:rgba(99,102,241,0.15); color:#a5b4fc; padding:0.2rem 0.55rem; border-radius:0.4rem; font-size:0.8rem; font-weight:600;">
+                  {{ user.goal }}
+                </span>
+              </td>
+              <td>
+                {% if user.intensity == "High" %}
+                  <span style="color:#f87171;">🔴 High</span>
+                {% elif user.intensity == "Medium" %}
+                  <span style="color:#fde68a;">🟡 Medium</span>
+                {% else %}
+                  <span style="color:#6ee7b7;">🟢 Low</span>
+                {% endif %}
+              </td>
+
+              <!-- Original Plan -->
+              <td>
+                {% if plan and plan.original_plan %}
+                  <div class="plan-preview">{{ plan.original_plan }}</div>
+                {% else %}
+                  <span class="no-plan">No plan yet</span>
+                {% endif %}
+              </td>
+
+              <!-- Updated Plan -->
+              <td>
+                {% if plan and plan.updated_plan %}
+                  <div class="plan-preview">{{ plan.updated_plan }}</div>
+                {% else %}
+                  <span class="no-plan">—</span>
+                {% endif %}
+              </td>
+
+              <!-- Nutrition Tip -->
+              <td>
+                {% if plan and plan.nutrition_tip %}
+                  <div class="plan-preview" style="color:#a7f3d0;">{{ plan.nutrition_tip }}</div>
+                {% else %}
+                  <span class="no-plan">—</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div><!-- /admin-table-wrapper -->
+
+    {% else %}
+
+      <!-- ── Empty State ── -->
+      <div class="empty-state">
+        <span class="icon">👥</span>
+        <h2 style="color:#555; margin-bottom:0.5rem;">No Users Yet</h2>
+        <p>Generate a fitness plan on the <a href="/">home page</a> to see users here.</p>
+      </div>
+
+    {% endif %}
+
+    <!-- ── Actions ── -->
+    <div style="margin-top:2rem;">
+      <a href="/" class="btn btn-secondary">← Back to Home</a>
+    </div>
+
+  </div><!-- /page-wrapper -->
+
+  <footer>
+    &copy; 2024 FitBuddy – AI Fitness Plan Generator &nbsp;|&nbsp; Admin Panel
+  </footer>
+
+</body>
+</html>
